@@ -1,0 +1,31 @@
+import sympy as sp
+
+
+def compose(f, g):
+  return lambda x: f.subs('x', g.subs('x', x))
+
+
+x = sp.symbols('x')
+
+f_str = input("Digite a função f(x) (exemplo: x**2 + 1): ")
+g_str = input("Digite a função g(x) (exemplo: 2*x - 3): ")
+
+f = sp.sympify(f_str.replace('^', '**'))
+g = sp.sympify(g_str.replace('^', '**'))
+
+gf = compose(g, f)
+gg = compose(g, g)
+ff = compose(f, f)
+fg = compose(f, g)
+
+x_value = float(input("Digite o valor de x: "))
+
+result_gf = gf(x_value)
+result_gg = gg(x_value)
+result_ff = ff(x_value)
+result_fg = fg(x_value)
+
+print("(g ° f)({}) = {}".format(x_value, result_gf))
+print("(g ° g)({}) = {}".format(x_value, result_gg))
+print("(f ° f)({}) = {}".format(x_value, result_ff))
+print("(f ° g)({}) = {}".format(x_value, result_fg))
